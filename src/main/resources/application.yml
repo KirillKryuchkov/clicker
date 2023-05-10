@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: clicker
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clicker
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+  jpa:
+    generate-ddl: false
