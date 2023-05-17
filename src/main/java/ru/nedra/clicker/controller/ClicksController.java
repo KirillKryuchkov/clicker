@@ -28,6 +28,7 @@ public class ClicksController {
 
     @RequestMapping(method = DELETE, path =  "/rest/clicks")
     public ResponseEntity<String> resetClicks(){
-        return ResponseEntity.ok(String.valueOf(service.resetClicks()));
+        service.resetClicks();
+        return ResponseEntity.ok("");
     }
 }

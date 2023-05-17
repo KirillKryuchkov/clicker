@@ -46,9 +46,7 @@ class ClicksServiceTestIT {
     @Test
     @Order(4)
     void resetClicksTest() {
-        Long clicksCount = assertDoesNotThrow(() -> service.resetClicks());
-
-        assertEquals(5, clicksCount);
+        assertDoesNotThrow(() -> service.resetClicks());
     }
 
     @Test

@@ -41,12 +41,10 @@ public class ClicksControllerTest {
                 .andExpect(content().string("88"));
     }
 
+
     @Test
     void resetClicksTest() throws Exception {
-        when(service.resetClicks()).thenReturn(14L);
-
         mockMvc.perform(delete("/rest/clicks"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("14"));
+                .andExpect(status().isOk());
     }
 }

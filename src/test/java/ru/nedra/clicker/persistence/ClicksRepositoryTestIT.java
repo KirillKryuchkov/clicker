@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.nedra.clicker.persistense.ClicksEntity;
 import ru.nedra.clicker.persistense.ClicksRepository;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,23 +21,31 @@ class ClicksRepositoryTestIT {
     @DisplayName("Имя теста")
     void createClicksEntityTest() {
         ClicksEntity entity = new ClicksEntity("clicker-test", 0L);
-
         assertDoesNotThrow(() -> repository.save(entity));
     }
 
     @Test
     @Order(2)
-    void createClicksEntity() {
-        ClicksEntity entity = assertDoesNotThrow(() -> repository.findFirstByApplicationName("clicker-test"));
-
-        assertEquals(0L, entity.getClicksCount());
+    void testIncrementAndGetClickCount() {
+        Long a = repository.findById("clicker").get().getClicksCount() + 1;
+        Long b = repository.incrementAndGetClickCount();
+        assertEquals(a, b);
     }
 
     @Test
     @Order(3)
-    void deleteClicksEntity() {
-        ClicksEntity entity = assertDoesNotThrow(() -> repository.findFirstByApplicationName("clicker-test"));
+    void testGetClicksCount() {
+        Long a = repository.getClicksCount();
+        Long b = repository.findById("clicker").get().getClicksCount();
+        assertEquals(a, b);
+    }
 
-        assertDoesNotThrow(() ->repository.delete(entity));
+    @Test
+    @Order(4)
+    void testResetClicks() {
+        repository.resetClicks();
+        assertEquals(0L, repository.findById("clicker").get().getClicksCount());
     }
 }
+
+
